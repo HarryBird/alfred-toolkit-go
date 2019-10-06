@@ -199,6 +199,20 @@ func (al *Alfred) ResultToIndentJson() ([]byte, error){
 	return json.MarshalIndent(al.result, "", "  ")
 }
 
+func (al *Alfred) Output() (int, error){
+	if len(al.result.Items) == 0 {
+		al.ResultAppend(*NewNoResultItem())
+	}
+
+	json, err := al.ResultToJson()
+	if err != nil {
+		return os.Stdout.WriteString("{\"items\":[{\"uid\":\"\",\"type\":\"default\",\"title\":\"We had a error\",\"subtitle\":\"~/Desktop\",\"arg\":\"\",\"autocomplete\":\"\",\"valid\":false,\"icon\":{\"type\":\"fileicon\",\"path\":\"~/Desktop\"}}]}")
+	}
+	
+	return os.Stdout.Write(json)
+}
+
+
 func NewAlfred(id string) (*Alfred, error) {
 	return new(Alfred).init(id)
 }
