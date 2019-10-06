@@ -64,12 +64,12 @@ func TestAlfredResult(t *testing.T) {
 		})
 
 		Convey("Need No Json Err", func() {
-			al.ResultAppend(*NewNoResultItem())
+			al.ResultAppend(NewNoResultItem())
 
 			err = errors.New("error1")
 			err2 := errors.Wrap(err, "wrap error")
-			al.ResultAppend(*NewErrorItem(err))
-			al.ResultAppend(*NewErrorItem(err2))
+			al.ResultAppend(NewErrorItem(err))
+			al.ResultAppend(NewErrorItem(err2))
 
 			json, err := al.ResultToIndentJson()
 			So(err, ShouldBeNil)
