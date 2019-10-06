@@ -37,13 +37,13 @@ func NewDefaultItem() *Item {
 
 func NewErrorItem(err error) *Item {
 	return NewItem(
-		"We had a error", err.Error(), "", "", "", "", false, NewDefaultIcon(),
+		"We had a error", err.Error(), "", "", "", "default", false, NewDefaultIcon(),
 	)
 }
 
 func NewNoResultItem() *Item {
 	return NewItem(
-		"No Result", "", "", "", "", "", false, NewDefaultIcon(),
+		"No Result", "", "", "", "", "default", false, NewDefaultIcon(),
 	)
 }
 
