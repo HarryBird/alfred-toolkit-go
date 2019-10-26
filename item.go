@@ -41,6 +41,12 @@ func NewErrorItem(err error) Item {
 	)
 }
 
+func NewErrorTitleItem(title, subTitle string) Item {
+	return NewItem(
+		title, subTitle, "", "", "", "", false, NewDefaultIcon(),
+	)
+}
+
 func NewNoResultItem() Item {
 	return NewItem(
 		"No Result", "", "", "", "", "", false, NewDefaultIcon(),
