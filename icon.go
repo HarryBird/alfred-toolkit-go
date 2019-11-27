@@ -16,7 +16,7 @@ func NewDefaultIcon() Icon {
 }
 
 func NewSuccIcon() Icon {
-	return NewIcon("filetype", "./succ.png")
+	return NewIcon("", "./succ.png")
 }
 
 func NewFailIcon() Icon {
