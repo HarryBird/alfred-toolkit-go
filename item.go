@@ -37,20 +37,24 @@ func NewDefaultItem() Item {
 
 func NewErrorItem(err error) Item {
 	return NewItem(
-		"We had a error", err.Error(), "", "", "", "", false, NewDefaultIcon(),
+		"We had a error", err.Error(), "", "", "", "", false, NewErrorIcon(),
 	)
 }
 
 func NewErrorTitleItem(title, subTitle string) Item {
 	return NewItem(
-		title, subTitle, "", "", "", "", false, NewDefaultIcon(),
+		title, subTitle, "", "", "", "", false, NewErrorIcon(),
 	)
 }
 
 func NewNoResultItem() Item {
 	return NewItem(
-		"No Result", "", "", "", "", "", false, NewDefaultIcon(),
+		"No Result", "", "", "", "", "", false, NewFailIcon(),
 	)
+}
+
+func NewCommonItem(title, subTitle, arg string) Item {
+	return NewItem(title, subTitle, arg, arg, "", "", true, NewSuccIcon())
 }
 
 func NewItem(title, subTitle, arg, auto, uid, ty string, valid bool, icon Icon) Item {

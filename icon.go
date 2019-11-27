@@ -14,3 +14,15 @@ func NewIcon(ty, path string) Icon {
 func NewDefaultIcon() Icon {
 	return NewIcon("fileicon", "~/Desktop")
 }
+
+func NewSuccIcon() Icon {
+	return NewIcon("filetype", "./succ.png")
+}
+
+func NewFailIcon() Icon {
+	return NewIcon("filetype", "./fail.png")
+}
+
+func NewErrorIcon() Icon {
+	return NewIcon("filetype", "./error.png")
+}
