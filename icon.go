@@ -20,9 +20,9 @@ func NewSuccIcon() Icon {
 }
 
 func NewFailIcon() Icon {
-	return NewIcon("filetype", "./fail.png")
+	return NewIcon("", "./fail.png")
 }
 
 func NewErrorIcon() Icon {
-	return NewIcon("filetype", "./error.png")
+	return NewIcon("", "./error.png")
 }
