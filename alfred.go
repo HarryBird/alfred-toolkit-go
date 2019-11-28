@@ -1,8 +1,8 @@
 package Alfred
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path"
@@ -26,7 +26,6 @@ type Alfred struct {
 	cacheDir  string
 	result    *Res
 }
-
 
 func (al *Alfred) init(id string) (*Alfred, error) {
 	al.id = id
@@ -177,26 +176,39 @@ func (al *Alfred) GetCacheDir() string {
 	return al.cacheDir
 }
 
-func (al *Alfred) GetResult() *Res{
+func (al *Alfred) GetResult() *Res {
 	return al.result
 }
 
-func (al *Alfred) ResultAppend(it Item) *Alfred{
+func (al *Alfred) ResultAppend(it Item) *Alfred {
 	al.result.Append(it)
 	return al
 }
 
-func (al *Alfred) ResultSet(its []Item) *Alfred{
+func (al *Alfred) ResultSet(its []Item) *Alfred {
 	al.result.Set(its)
 	return al
 }
 
-func (al *Alfred) ResultToJson() ([]byte, error){
+func (al *Alfred) ResultToJson() ([]byte, error) {
 	return json.Marshal(al.result)
 }
 
-func (al *Alfred) ResultToIndentJson() ([]byte, error){
+func (al *Alfred) ResultToIndentJson() ([]byte, error) {
 	return json.MarshalIndent(al.result, "", "  ")
+}
+
+func (al *Alfred) Output() (int, error) {
+	if len(al.result.Items) == 0 {
+		al.ResultAppend(NewNoResultItem())
+	}
+
+	json, err := al.ResultToJson()
+	if err != nil {
+		return os.Stdout.WriteString("{\"items\":[{\"uid\":\"\",\"type\":\"default\",\"title\":\"We had a error\",\"subtitle\":\"" + err.Error() + "\",\"arg\":\"\",\"autocomplete\":\"\",\"valid\":false,\"icon\":{\"type\":\"fileicon\",\"path\":\"~/Desktop\"}}]}")
+	}
+
+	return os.Stdout.Write(json)
 }
 
 func NewAlfred(id string) (*Alfred, error) {

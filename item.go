@@ -22,8 +22,8 @@ type Item struct {
 	Icon         Icon   `json:"icon"`
 }
 
-func NewDefaultItem() *Item {
-	return &Item{
+func NewDefaultItem() Item {
+	return Item{
 		Uid:          strconv.FormatInt(newUID(), 10),
 		Arg:          "Default Arg",
 		Valid:        true,
@@ -35,19 +35,29 @@ func NewDefaultItem() *Item {
 	}
 }
 
-func NewErrorItem(err error) *Item {
+func NewErrorItem(err error) Item {
 	return NewItem(
-		"We had a error", err.Error(), "", "", "", "", false, NewDefaultIcon(),
+		"We had a error", err.Error(), "", "", "", "", false, NewErrorIcon(),
 	)
 }
 
-func NewNoResultItem() *Item {
+func NewErrorTitleItem(title, subTitle string) Item {
 	return NewItem(
-		"No Result", "", "", "", "", "", false, NewDefaultIcon(),
+		title, subTitle, "", "", "", "", false, NewErrorIcon(),
 	)
 }
 
-func NewItem(title, subTitle, arg, auto, uid, ty string, valid bool, icon Icon) *Item {
+func NewNoResultItem() Item {
+	return NewItem(
+		"No Result", "", "", "", "", "", false, NewFailIcon(),
+	)
+}
+
+func NewCommonItem(title, subTitle, arg string) Item {
+	return NewItem(title, subTitle, arg, arg, "", "", true, NewSuccIcon())
+}
+
+func NewItem(title, subTitle, arg, auto, uid, ty string, valid bool, icon Icon) Item {
 	if uid == "" {
 		uid = strconv.FormatInt(newUID(), 10)
 	}
@@ -56,7 +66,7 @@ func NewItem(title, subTitle, arg, auto, uid, ty string, valid bool, icon Icon) 
 		ty = "default"
 	}
 
-	return &Item{
+	return Item{
 		Uid:          uid,
 		Arg:          arg,
 		Valid:        valid,
